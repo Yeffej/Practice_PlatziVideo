@@ -17,7 +17,7 @@ const $home = document.getElementById("home")
 const API = 'https://yts.mx/api/v2/list_movies.json?'
 const randomAPI = "https://randomuser.me/api/"
 const FriendsPlaylist = document.querySelectorAll(".playlistFriends-item")
-
+const containers = [$actionContainer, $drama, $animation]
 
 
 function featuringTemplate(searchedMovie) {
@@ -175,7 +175,7 @@ function renderRandomPeople(People) {
   })
 }
 
-(async function getmovies() {
+async function getmovies() {
   async function getData(url) {
     const response = await fetch(url)
     const data = await response.json()
@@ -192,7 +192,6 @@ function renderRandomPeople(People) {
     }
   }
 
-  // try {
     const actionList = await ConfirmationStorage("action")
     const animationList = await ConfirmationStorage("animation")
     const dramaList = await ConfirmationStorage("drama")
@@ -200,8 +199,8 @@ function renderRandomPeople(People) {
     $drama.removeChild($drama.firstElementChild)
     $animation.removeChild($animation.firstElementChild)
     pushTheMovies(actionList, $actionContainer)
-    pushTheMovies(animationList, $drama)
-    pushTheMovies(dramaList, $animation)
+    pushTheMovies(animationList, $animation)
+    pushTheMovies(dramaList, $drama)
     
     async function PeopleStorage() {
       let peopleList
@@ -217,9 +216,29 @@ function renderRandomPeople(People) {
 
     const {results: People} = await PeopleStorage()
     renderRandomPeople(People)
-    console.log(People)
-  // }
-  // catch {
-  //   console.log("Lo siento, ha habido un error de conexión.")
-  // }
-})()
+}
+
+getmovies()
+
+function Reload() {
+  for(let i = 0; i < 3; i++){
+  
+    while (containers[i].childElementCount > 0) {
+      containers[i].removeChild(containers[i].firstElementChild)
+    
+    }
+   
+  }
+  const $loader = document.createElement("img")
+  SetAttributes($loader, {
+    src: "src/images/loader.gif",
+    width: "70",
+    height: "70",
+  })
+  for(const container of containers) {
+    container.appendChild($loader.cloneNode())
+  }
+
+  localStorage.clear()
+  getmovies()
+}
