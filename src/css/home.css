@@ -13,6 +13,9 @@ body {
   grid-template-areas: "sidebar primary"
                        "sidebar featuring";
 }
+.home.sidebar-Desactive {
+  grid-template-columns: 0 1fr
+}
 .home.search-active {
   grid-template-rows: 1fr 150px;
 }
@@ -278,6 +281,10 @@ body {
   z-index: -1;
   
 }
+.bugger-bt {
+
+}
+
 @keyframes fadeIn {
   0% {
     opacity: 0;
@@ -294,4 +301,17 @@ body {
   to {
     opacity: 0;
   }
+}
+
+
+/* Responsive Design Desktop First */
+
+@media only screen and (max-width: 767px) {
+
+}
+@media only screen and (max-width: 480px) {
+
+}
+@media only screen and (max-width: 320px) {
+
 }

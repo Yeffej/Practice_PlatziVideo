@@ -18,7 +18,10 @@ const API = 'https://yts.mx/api/v2/list_movies.json?'
 const randomAPI = "https://randomuser.me/api/"
 const FriendsPlaylist = document.querySelectorAll(".playlistFriends-item")
 const containers = [$actionContainer, $drama, $animation]
-
+const $bgButton = document.getElementById("bg-button") 
+const $mediaquery = window.matchMedia("screen and (max-width: 767px)")
+const $homeSideBar = document.getElementsByClassName("home-sidebar")[0]
+let isViewportOnMedia = $mediaquery.matches
 
 function featuringTemplate(searchedMovie) {
   return (`<div class="featuring">
@@ -241,4 +244,40 @@ function Reload() {
 
   localStorage.clear()
   getmovies()
+}
+
+function checkOutBgButton() {
+  if (isViewportOnMedia) {
+      $bgButton.style.display = "fixed"
+      $bgButton.addEventListener("click", bgButttonActions)
+      console.log("Into")
+  }else {
+      $bgButton.style.display = null
+      $bgButton.removeEventListener("click", bgButttonActions)
+      console.log("out")
+  }
+
+}
+checkOutBgButton()
+
+$mediaquery.addListener(()=> {
+  console.log("OK")
+  if(isViewportOnMedia){
+    isViewportOnMedia = false
+  }else{
+    isViewportOnMedia = true
+  }
+  checkOutBgButton()
+})
+
+
+
+function bgButttonActions() {
+  if ($homeSideBar.style.display !== "none") {
+    $homeSideBar.style.display = "none"
+    $home.classList.add("sidebar-Desactive")
+  } else {
+    $homeSideBar.style.display = null
+    $home.classList.remove("sidebar-Desactive")
+  }
 }
