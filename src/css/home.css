@@ -206,6 +206,7 @@ body {
   display: flex;
   justify-content: space-between;
   align-items: center;
+  grid-area: user;
 }
 
 .user p {
@@ -375,7 +376,7 @@ body {
 
 /* Responsive Design Desktop First */
 
-@media only screen and (max-width: 767px) {
+@media screen and (max-width: 767px) {
   .home{
     grid-template-columns: 0 1fr
   }
@@ -386,9 +387,25 @@ body {
   }
 
 }
-@media only screen and (max-width: 480px) {
-
+@media screen and (max-width: 480px) {
+  .home-sidebar{
+    width: 55vw;
+  }
+  .home-primary{
+    grid-template-rows: auto  auto 1fr;
+    grid-template-areas: "search search"
+                        "user user"
+                       "list list";
+  }
+  .user p {
+    margin-right: 0;
+  }
+  .reloadButton button {
+    margin-left: 0;
+  }
 }
-@media only screen and (max-width: 320px) {
-
+@media screen and (max-width: 320px) {
+  .home-sidebar{
+    width: 64vw;
+  }
 }
