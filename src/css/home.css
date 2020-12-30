@@ -1,8 +1,44 @@
+	/*
+  	Flaticon icon font: Flaticon
+  	Creation date: 28/12/2020 17:15
+  	*/
+
+    @font-face {
+      font-family: 'icomoon';
+      src:  url('fonts/icomoon.eot?kph41');
+      src:  url('fonts/icomoon.eot?kph41#iefix') format('embedded-opentype'),
+        url('fonts/icomoon.ttf?kph41') format('truetype'),
+        url('fonts/icomoon.woff?kph41') format('woff'),
+        url('fonts/icomoon.svg?kph41#icomoon') format('svg');
+      font-weight: normal;
+      font-style: normal;
+      font-display: block;
+    }
+    
+    [class^="icon-"], [class*=" icon-"] {
+      /* use !important to prevent issues with browser extensions that change fonts */
+      font-family: 'icomoon' !important;
+      speak-as: none;
+      font-style: normal;
+      font-weight: normal;
+      font-variant: normal;
+      text-transform: none;
+      line-height: 1;
+    
+      /* Better Font Rendering =========== */
+      -webkit-font-smoothing: antialiased;
+      -moz-osx-font-smoothing: grayscale;
+    }
+    
+    .icon-menu:before {
+      content: "\e9bd";
+    }
+
+
 body {
   margin: 0;
   font-family: 'Lato', sans-serif;
 }
-
 
 /*home layout*/
 .home {
@@ -13,8 +49,13 @@ body {
   grid-template-areas: "sidebar primary"
                        "sidebar featuring";
 }
-.home.sidebar-Desactive {
-  grid-template-columns: 0 1fr
+.overlay-sidebar {
+  position: absolute;
+  left: 0;
+  right: 0;
+  top: 0;
+  bottom: 0;
+  display: none;
 }
 .home.search-active {
   grid-template-rows: 1fr 150px;
@@ -22,6 +63,12 @@ body {
 
 .home-sidebar {
   grid-area: sidebar;
+  transition: 1s;
+  -webkit-transition: 1s;
+  left: 0;
+}
+.home-sidebar.sidebar-desactive{
+  left: -600px;
 }
 .home-primary {
   grid-area: primary;
@@ -159,6 +206,7 @@ body {
   display: flex;
   justify-content: space-between;
   align-items: center;
+  grid-area: user;
 }
 
 .user p {
@@ -282,7 +330,29 @@ body {
   
 }
 .bugger-bt {
-
+    display: none;
+    width: 50px;
+    height: 50px;
+    color: white;
+    font-size: 20px;
+    text-align: center;
+    border-radius: 50%;
+    line-height: 50px;
+    position: fixed;
+    background-color: rgba(17, 17, 29, 0.85);
+    transition: 1s;
+    -webkit-transition: 1s;
+    z-index: 1;
+}
+.Close {
+  font-size: 20px;
+  font-weight: 900;
+  position: absolute;
+  color: white;
+  text-decoration: underline;
+  right: 10px;
+  cursor: pointer;
+  display: none;
 }
 
 @keyframes fadeIn {
@@ -306,12 +376,36 @@ body {
 
 /* Responsive Design Desktop First */
 
-@media only screen and (max-width: 767px) {
+@media screen and (max-width: 767px) {
+  .home{
+    grid-template-columns: 0 1fr
+  }
+  .home-sidebar {
+    /* display: none; */
+    position: relative;
+    width: 40vw;
+  }
 
 }
-@media only screen and (max-width: 480px) {
-
+@media screen and (max-width: 480px) {
+  .home-sidebar{
+    width: 55vw;
+  }
+  .home-primary{
+    grid-template-rows: auto  auto 1fr;
+    grid-template-areas: "search search"
+                        "user user"
+                       "list list";
+  }
+  .user p {
+    margin-right: 0;
+  }
+  .reloadButton button {
+    margin-left: 0;
+  }
 }
-@media only screen and (max-width: 320px) {
-
+@media screen and (max-width: 320px) {
+  .home-sidebar{
+    width: 64vw;
+  }
 }

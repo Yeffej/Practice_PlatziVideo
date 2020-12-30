@@ -21,6 +21,7 @@ const containers = [$actionContainer, $drama, $animation]
 const $bgButton = document.getElementById("bg-button") 
 const $mediaquery = window.matchMedia("screen and (max-width: 767px)")
 const $homeSideBar = document.getElementsByClassName("home-sidebar")[0]
+const $close = document.getElementById("close-sidebar")
 let isViewportOnMedia = $mediaquery.matches
 
 function featuringTemplate(searchedMovie) {
@@ -248,7 +249,8 @@ function Reload() {
 
 function checkOutBgButton() {
   if (isViewportOnMedia) {
-      $bgButton.style.display = "fixed"
+      $bgButton.style.display = "block"
+      $homeSideBar.classList.add("sidebar-desactive")
       $bgButton.addEventListener("click", bgButttonActions)
       console.log("Into")
   }else {
@@ -273,11 +275,30 @@ $mediaquery.addListener(()=> {
 
 
 function bgButttonActions() {
-  if ($homeSideBar.style.display !== "none") {
-    $homeSideBar.style.display = "none"
-    $home.classList.add("sidebar-Desactive")
-  } else {
-    $homeSideBar.style.display = null
-    $home.classList.remove("sidebar-Desactive")
+  const closer = () => {
+    $homeSideBar.classList.add("sidebar-desactive")
+    $close.style.display = null
+    $close.removeEventListener("click", closer)
+    $bgButton.style.animation = "fadeIn 1s forwards"
+    $home.firstElementChild.removeEventListener("click", closeOverlay)
+  }
+  const closeOverlay = () => {
+    $homeSideBar.classList.add("sidebar-desactive")
+    $close.style.display = null
+    $close.removeEventListener("click", closer)
+    $bgButton.style.animation = "fadeIn 1s forwards"
+    $home.firstElementChild.removeEventListener("click", closeOverlay)
+    $home.firstElementChild.style.display = null;
+    console.log(event.target)
+  }
+  if ($homeSideBar.classList.contains("sidebar-desactive")) {
+    // $homeSideBar.style.display = "initial"
+    $bgButton.style.animation = "fadeOut 1s forwards"
+    $close.style.display = "initial"
+    $homeSideBar.classList.remove("sidebar-desactive")
+    $close.addEventListener("click", closer)
+// Im getting the overlay with $home because i know that I set it there but if the HTMl change this code have to do it
+    $home.firstElementChild.style.display = "initial";
+    $home.firstElementChild.addEventListener("click", closeOverlay)  
   }
 }
