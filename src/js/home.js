@@ -252,18 +252,18 @@ function checkOutBgButton() {
       $bgButton.style.display = "block"
       $homeSideBar.classList.add("sidebar-desactive")
       $bgButton.addEventListener("click", bgButttonActions)
-      console.log("Into")
+      
   }else {
       $bgButton.style.display = null
       $bgButton.removeEventListener("click", bgButttonActions)
-      console.log("out")
+      
   }
 
 }
 checkOutBgButton()
 
 $mediaquery.addListener(()=> {
-  console.log("OK")
+  
   if(isViewportOnMedia){
     isViewportOnMedia = false
   }else{
@@ -283,16 +283,10 @@ function bgButttonActions() {
     $home.firstElementChild.removeEventListener("click", closeOverlay)
   }
   const closeOverlay = () => {
-    $homeSideBar.classList.add("sidebar-desactive")
-    $close.style.display = null
-    $close.removeEventListener("click", closer)
-    $bgButton.style.animation = "fadeIn 1s forwards"
-    $home.firstElementChild.removeEventListener("click", closeOverlay)
+    closer()
     $home.firstElementChild.style.display = null;
-    console.log(event.target)
   }
   if ($homeSideBar.classList.contains("sidebar-desactive")) {
-    // $homeSideBar.style.display = "initial"
     $bgButton.style.animation = "fadeOut 1s forwards"
     $close.style.display = "initial"
     $homeSideBar.classList.remove("sidebar-desactive")
